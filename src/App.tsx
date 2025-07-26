@@ -14,8 +14,8 @@ function AppContent() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>🧘 Yoga Class Escrow</h1>
-        <p>Secure payments for yoga classes using Kleros Escrow</p>
+        <h1>🧘 Yoga Class Booking</h1>
+        <p>Book yoga classes with secure escrow payments - Get refunds before class starts!</p>
       </header>
       
       {!isConnected ? (

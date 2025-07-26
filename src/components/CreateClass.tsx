@@ -7,13 +7,13 @@ export default function CreateClass() {
   const { createYogaClass, isPending, isConfirming, isConfirmed, hash } = useEscrow();
   
   const [formData, setFormData] = useState({
-    instructorAddress: address || '',
-    price: '',
-    duration: '7', // days
-    className: '',
-    description: '',
-    location: '',
-    time: '',
+    instructorAddress: '0x742d35Cc6636C0532925a3b8D0b87c38049D5Fbb', // Demo instructor address
+    price: '0.001', // Default small amount for testing
+    duration: '1', // 1 day for easy testing
+    className: 'Morning Yoga Session',
+    description: 'A relaxing morning yoga class',
+    location: 'Online via Zoom',
+    time: 'Tomorrow 9:00 AM',
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -52,11 +52,13 @@ export default function CreateClass() {
   if (isConfirmed) {
     return (
       <div className="success-message">
-        <h3>✅ Yoga Class Created Successfully!</h3>
+        <h3>✅ Class Booked Successfully!</h3>
         <p>Transaction Hash: <code>{hash}</code></p>
-        <p>Students can now pay to join your class through the escrow.</p>
+        <p>You've paid {formData.price} ETH for the yoga class. Check the "Transactions" tab to manage your booking.</p>
+        <p><strong>Before class starts:</strong> You can request a refund from the instructor.</p>
+        <p><strong>After deadline:</strong> Payment goes to the instructor automatically.</p>
         <button onClick={() => window.location.reload()} className="create-another-button">
-          Create Another Class
+          Book Another Class
         </button>
       </div>
     );
@@ -64,8 +66,8 @@ export default function CreateClass() {
 
   return (
     <div className="create-class">
-      <h2>Create New Yoga Class</h2>
-      <p>Create a secure escrow for your yoga class. Students will pay into the escrow, and you'll receive payment after the class.</p>
+      <h2>Book a Yoga Class</h2>
+      <p>Pay for a yoga class through secure escrow. You can request a refund before the class starts, or the instructor gets paid after the deadline.</p>
       
       <form onSubmit={handleSubmit} className="class-form">
         <div className="form-group">
@@ -82,16 +84,17 @@ export default function CreateClass() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="instructorAddress">Instructor Address (You) *</label>
+          <label htmlFor="instructorAddress">Instructor Address *</label>
           <input
             type="text"
             id="instructorAddress"
             name="instructorAddress"
             value={formData.instructorAddress}
             onChange={handleInputChange}
-            placeholder="0x..."
+            placeholder="0x742d35Cc6636C0532925a3b8D0b87c38049D5Fbb"
             required
           />
+          <small style={{color: '#6c757d', fontSize: '0.9rem'}}>Pre-filled with demo instructor address for testing</small>
         </div>
 
         <div className="form-group">
@@ -110,19 +113,20 @@ export default function CreateClass() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="duration">Payment Deadline</label>
+          <label htmlFor="duration">Class Deadline (when payment goes to instructor)</label>
           <select
             id="duration"
             name="duration"
             value={formData.duration}
             onChange={handleInputChange}
           >
+            <option value="0.01">1 minute (for testing)</option>
+            <option value="0.1">6 minutes (for testing)</option>
             <option value="1">1 day</option>
             <option value="3">3 days</option>
             <option value="7">1 week</option>
-            <option value="14">2 weeks</option>
-            <option value="30">1 month</option>
           </select>
+          <small style={{color: '#6c757d', fontSize: '0.9rem'}}>Choose a short deadline for easy testing</small>
         </div>
 
         <div className="form-group">
@@ -167,9 +171,9 @@ export default function CreateClass() {
           className="submit-button"
         >
           {isPending || isConfirming ? (
-            isConfirming ? 'Confirming...' : 'Creating Class...'
+            isConfirming ? 'Confirming...' : 'Booking Class...'
           ) : (
-            'Create Yoga Class Escrow'
+            `Book Class & Pay ${formData.price} ETH`
           )}
         </button>
       </form>

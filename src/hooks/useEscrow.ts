@@ -51,10 +51,20 @@ export function useEscrow() {
     });
   };
 
+  const reimburse = async (transactionId: number, amount: string) => {
+    writeContract({
+      address: ESCROW_CONTRACT.address,
+      abi: ESCROW_CONTRACT.abi,
+      functionName: 'reimburse',
+      args: [BigInt(transactionId), parseEther(amount)],
+    });
+  };
+
   return {
     createYogaClass,
     payInstructor,
     executeTransaction,
+    reimburse,
     isPending,
     isConfirming,
     isConfirmed,

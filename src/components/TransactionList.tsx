@@ -24,9 +24,9 @@ export default function TransactionList() {
 
   return (
     <div className="transaction-list">
-      <h2>All Transactions ({count})</h2>
+      <h2>All Class Bookings ({count})</h2>
       <p className="help-text">
-        Here you can see all yoga class transactions. You can pay for classes as a student or request payment as an instructor.
+        Here you can see all yoga class bookings. As a student, you can request refunds before class starts. As an instructor, you can process refunds.
       </p>
       
       <div className="transactions">

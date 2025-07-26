@@ -32,6 +32,16 @@ export const ESCROW_CONTRACT = {
       "type": "function"
     },
     {
+      "inputs": [
+        {"internalType": "uint256", "name": "_transactionID", "type": "uint256"},
+        {"internalType": "uint256", "name": "_amountReimbursed", "type": "uint256"}
+      ],
+      "name": "reimburse",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "inputs": [],
       "name": "getTransactionCount",
       "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],

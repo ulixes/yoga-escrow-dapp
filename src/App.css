@@ -384,12 +384,14 @@
 }
 
 .payment-section,
-.execute-section {
+.execute-section,
+.refund-section {
   margin-bottom: 1.5rem;
 }
 
 .payment-section h4,
-.execute-section h4 {
+.execute-section h4,
+.refund-section h4 {
   margin-bottom: 1rem;
   color: #495057;
 }
@@ -408,7 +410,8 @@
 }
 
 .pay-button,
-.execute-button {
+.execute-button,
+.refund-button {
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 6px;
@@ -435,8 +438,18 @@
   background: #e0a800;
 }
 
+.refund-button {
+  background: #dc3545;
+  color: white;
+}
+
+.refund-button:hover:not(:disabled) {
+  background: #c82333;
+}
+
 .pay-button:disabled,
-.execute-button:disabled {
+.execute-button:disabled,
+.refund-button:disabled {
   background: #6c757d;
   cursor: not-allowed;
 }
@@ -448,12 +461,20 @@
 }
 
 .observer-note,
-.resolved-note {
+.resolved-note,
+.refund-note {
   text-align: center;
   padding: 1rem;
   background: #f8f9fa;
   border-radius: 6px;
   color: #6c757d;
+}
+
+.refund-note {
+  text-align: left;
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  color: #856404;
 }
 
 .resolved-note {

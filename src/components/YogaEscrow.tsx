@@ -24,13 +24,13 @@ export default function YogaEscrow() {
           className={`tab ${activeTab === 'create' ? 'active' : ''}`}
           onClick={() => setActiveTab('create')}
         >
-          Create Yoga Class
+          📚 Book a Class
         </button>
         <button
           className={`tab ${activeTab === 'transactions' ? 'active' : ''}`}
           onClick={() => setActiveTab('transactions')}
         >
-          Transactions ({count})
+          💳 My Bookings ({count})
         </button>
       </div>
 

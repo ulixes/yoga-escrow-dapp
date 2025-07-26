@@ -18,8 +18,9 @@ const STATUS_NAMES = {
 
 export default function TransactionCard({ transactionId, currentUserAddress }: TransactionCardProps) {
   const { transaction, isLoading, formattedAmount, isExpired } = useTransaction(transactionId);
-  const { payInstructor, executeTransaction, isPending, isConfirming, isConfirmed } = useEscrow();
+  const { payInstructor, executeTransaction, reimburse, isPending, isConfirming, isConfirmed } = useEscrow();
   const [paymentAmount, setPaymentAmount] = useState('');
+  const [refundAmount, setRefundAmount] = useState('');
 
   if (isLoading) {
     return <div className="transaction-card loading">Loading transaction...</div>;
@@ -34,6 +35,8 @@ export default function TransactionCard({ transactionId, currentUserAddress }: T
   const isResolved = transaction.status === 6;
   const canPayInstructor = isBuyer && transaction.status === 0 && !isResolved;
   const canExecute = transaction.status === 0 && isExpired && !isResolved;
+  const canRequestRefund = isBuyer && transaction.status === 0 && !isExpired && !isResolved;
+  const canGiveRefund = isSeller && transaction.status === 0 && !isResolved;
 
   const handlePay = async () => {
     if (!paymentAmount || parseFloat(paymentAmount) <= 0) {
@@ -58,6 +61,24 @@ export default function TransactionCard({ transactionId, currentUserAddress }: T
       await executeTransaction(transactionId);
     } catch (error) {
       console.error('Error executing transaction:', error);
+    }
+  };
+
+  const handleRefund = async () => {
+    if (!refundAmount || parseFloat(refundAmount) <= 0) {
+      alert('Please enter a valid refund amount');
+      return;
+    }
+    
+    if (parseFloat(refundAmount) > parseFloat(formattedAmount)) {
+      alert('Refund amount cannot exceed escrow amount');
+      return;
+    }
+
+    try {
+      await reimburse(transactionId, refundAmount);
+    } catch (error) {
+      console.error('Error processing refund:', error);
     }
   };
 
@@ -177,6 +198,47 @@ export default function TransactionCard({ transactionId, currentUserAddress }: T
             >
               {isPending || isConfirming ? 'Processing...' : 'Execute Transaction'}
             </button>
+          </div>
+        )}
+
+        {canRequestRefund && (
+          <div className="refund-section">
+            <h4>💸 Request Refund</h4>
+            <p>Class hasn't started yet. Contact the instructor to request a refund.</p>
+            <div className="refund-note">
+              <p><strong>Note:</strong> Only the instructor can process refunds. You can message them at:</p>
+              <p style={{fontFamily: 'monospace', fontSize: '0.9rem', background: '#f8f9fa', padding: '0.5rem', borderRadius: '4px'}}>
+                {transaction.seller}
+              </p>
+            </div>
+          </div>
+        )}
+
+        {canGiveRefund && (
+          <div className="refund-section">
+            <h4>💰 Give Refund to Student</h4>
+            <p>Refund the student before the class deadline.</p>
+            <div className="payment-input">
+              <input
+                type="number"
+                value={refundAmount}
+                onChange={(e) => setRefundAmount(e.target.value)}
+                placeholder="Amount to refund (ETH)"
+                step="0.001"
+                min="0"
+                max={formattedAmount}
+              />
+              <button
+                onClick={handleRefund}
+                disabled={isPending || isConfirming}
+                className="refund-button"
+              >
+                {isPending || isConfirming ? 'Processing...' : 'Process Refund'}
+              </button>
+            </div>
+            <p className="payment-note">
+              This will send the refund directly to the student's wallet.
+            </p>
           </div>
         )}
 
