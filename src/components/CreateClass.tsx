@@ -5,7 +5,7 @@ export default function CreateClass() {
   const { createYogaClass, isPending, isConfirming, isConfirmed, hash } = useEscrow();
   
   const [formData, setFormData] = useState({
-    instructorAddress: '0x742d35Cc6636C0532925a3b8D0b87c38049D5Fbb', // Demo instructor address
+    instructorAddress: '0xb07bb9D7Be773CD996cd092EF8b249Da49ec6ec6', // Instructor wallet address
     price: '0.001', // Default small amount for testing
     duration: '1', // 1 day for easy testing
     className: 'Morning Yoga Session',
@@ -89,10 +89,10 @@ export default function CreateClass() {
             name="instructorAddress"
             value={formData.instructorAddress}
             onChange={handleInputChange}
-            placeholder="0x742d35Cc6636C0532925a3b8D0b87c38049D5Fbb"
+            placeholder="0xb07bb9D7Be773CD996cd092EF8b249Da49ec6ec6"
             required
           />
-          <small style={{color: '#6c757d', fontSize: '0.9rem'}}>Pre-filled with demo instructor address for testing</small>
+          <small style={{color: '#6c757d', fontSize: '0.9rem'}}>Pre-filled with instructor wallet address</small>
         </div>
 
         <div className="form-group">
