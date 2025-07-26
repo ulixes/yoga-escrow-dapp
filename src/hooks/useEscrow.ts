@@ -22,7 +22,17 @@ export function useEscrow() {
     secondsFromNow: number,
     description: string
   ) => {
-    const deadline = BigInt(Math.floor(Date.now() / 1000) + secondsFromNow);
+    const currentTime = Math.floor(Date.now() / 1000);
+    const deadline = BigInt(currentTime + secondsFromNow);
+    
+    console.log('🔍 Debug info:', {
+      priceInEth,
+      secondsFromNow,
+      currentTime,
+      deadline: deadline.toString(),
+      instructorAddress,
+      parsedEther: parseEther(priceInEth).toString()
+    });
     
     writeContract({
       address: ESCROW_CONTRACT.address,

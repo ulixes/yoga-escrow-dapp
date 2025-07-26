@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { useEscrow } from '../hooks/useEscrow';
+import { useChainId } from 'wagmi';
 
 export default function CreateClass() {
   const { createYogaClass, isPending, isConfirming, isConfirmed, hash } = useEscrow();
+  const chainId = useChainId();
   
   const [formData, setFormData] = useState({
     instructorAddress: '0xb07bb9D7Be773CD996cd092EF8b249Da49ec6ec6', // Instructor wallet address
     price: '0.001', // Default small amount for testing
-    duration: '300', // 5 minutes for easy testing
+    duration: '86400', // 1 day for testing
     className: 'Morning Yoga Session',
     description: 'A relaxing morning yoga class',
     location: 'Online via Zoom',
@@ -16,6 +18,12 @@ export default function CreateClass() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Check if on correct network
+    if (chainId !== 42161) {
+      alert('Please switch to Arbitrum One network (Chain ID: 42161)');
+      return;
+    }
     
     if (!formData.instructorAddress || !formData.price || !formData.className) {
       alert('Please fill in all required fields');
@@ -118,12 +126,11 @@ export default function CreateClass() {
             value={formData.duration}
             onChange={handleInputChange}
           >
-            <option value="60">1 minute (for testing)</option>
-            <option value="300">5 minutes (for testing)</option>
-            <option value="600">10 minutes (for testing)</option>
-            <option value="86400">1 day</option>
+            <option value="86400">1 day (safe testing)</option>
             <option value="259200">3 days</option>
             <option value="604800">1 week</option>
+            <option value="300">5 minutes (advanced)</option>
+            <option value="600">10 minutes (advanced)</option>
           </select>
           <small style={{color: '#6c757d', fontSize: '0.9rem'}}>Choose a short deadline for easy testing</small>
         </div>

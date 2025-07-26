@@ -12,6 +12,6 @@ export const config = createConfig({
     coinbaseWallet({ appName: 'Yoga Escrow' }),
   ],
   transports: {
-    [arbitrum.id]: http(),
+    [arbitrum.id]: http('https://arb1.arbitrum.io/rpc'),
   },
 });
