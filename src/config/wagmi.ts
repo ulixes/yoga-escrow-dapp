@@ -5,14 +5,14 @@ import { walletConnect, metaMask, coinbaseWallet } from 'wagmi/connectors';
 const projectId = 'yoga-escrow-app'; // In a real app, use your WalletConnect project ID
 
 export const config = createConfig({
-  chains: [base, arbitrum],
+  chains: [arbitrum, base],
   connectors: [
     metaMask(),
     walletConnect({ projectId }),
     coinbaseWallet({ appName: 'Yoga Escrow' }),
   ],
   transports: {
-    [base.id]: http(),
     [arbitrum.id]: http('https://arb1.arbitrum.io/rpc'),
+    [base.id]: http(),
   },
 });

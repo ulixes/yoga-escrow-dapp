@@ -20,8 +20,8 @@ export default function CreateClass() {
     e.preventDefault();
     
     // Check if on supported network
-    if (chainId !== 42161 && chainId !== 8453) {
-      alert('Please switch to Arbitrum One (Chain ID: 42161) or Base Mainnet (Chain ID: 8453)');
+    if (chainId !== 42161) {
+      alert('Please switch to Arbitrum One network in your wallet. The Kleros Escrow contract is only deployed on Arbitrum One.');
       return;
     }
     
@@ -82,17 +82,17 @@ export default function CreateClass() {
   return (
     <div className="create-class">
       <div style={{
-        background: '#d4edda',
-        border: '1px solid #c3e6cb',
-        color: '#155724',
+        background: '#fff3cd',
+        border: '1px solid #ffeaa7',
+        color: '#856404',
         padding: '1rem',
         borderRadius: '8px',
         marginBottom: '2rem'
       }}>
-        <h4>✅ Multi-Network Support</h4>
-        <p><strong>Now supports both Arbitrum One and Base Mainnet!</strong></p>
-        <p>Switch to <strong>Base Mainnet</strong> for lower fees if you experience issues on Arbitrum One.</p>
-        <p>The Kleros Escrow contract works on both networks.</p>
+        <h4>⚠️ Network Notice</h4>
+        <p><strong>Please use Arbitrum One network for this dApp.</strong></p>
+        <p>The Kleros Escrow contract is deployed on Arbitrum One.</p>
+        <p>Current network: {chainId === 42161 ? '✅ Arbitrum One' : chainId === 8453 ? '❌ Base Mainnet' : `❌ Chain ID: ${chainId}`}</p>
       </div>
       
       <h2>Book a Yoga Class</h2>

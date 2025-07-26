@@ -26,11 +26,10 @@ export default function TransactionList() {
         <p><strong>Error:</strong> {error.message}</p>
         <p>This usually means:</p>
         <ul>
-          <li>The Kleros Escrow contract doesn't exist on this network</li>
-          <li>You need to switch to a supported network</li>
-          <li>There's a network connectivity issue</li>
+          <li>You're not on Arbitrum One network</li>
+          <li>The Kleros Escrow contract only exists on Arbitrum One</li>
         </ul>
-        <p><strong>Try:</strong> Switch to {chainId === 42161 ? 'Base Mainnet' : 'Arbitrum One'} in your wallet</p>
+        <p><strong>Solution:</strong> Please switch to Arbitrum One network in your wallet</p>
       </div>
     );
   }
