@@ -34,6 +34,10 @@ bun install
 bun run dev
 ```
 
+## Live Demo
+
+🌐 **[Try the live demo here!](https://ulixes.github.io/yoga-escrow-dapp/)**
+
 ## Contract Details
 
 - **Network**: Arbitrum One
