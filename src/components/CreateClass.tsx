@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { useAccount } from 'wagmi';
 import { useEscrow } from '../hooks/useEscrow';
 
 export default function CreateClass() {
-  const { address } = useAccount();
   const { createYogaClass, isPending, isConfirming, isConfirmed, hash } = useEscrow();
   
   const [formData, setFormData] = useState({
