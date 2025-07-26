@@ -80,6 +80,14 @@ export function useTransactionCount() {
     functionName: 'getTransactionCount',
   });
 
+  console.log('🔍 Transaction Count Debug:', {
+    data: data ? data.toString() : 'null',
+    count: data ? Number(data) : 0,
+    isLoading,
+    error: error?.message || 'none',
+    contractAddress: ESCROW_CONTRACT.address
+  });
+
   return {
     count: data ? Number(data) : 0,
     isLoading,
