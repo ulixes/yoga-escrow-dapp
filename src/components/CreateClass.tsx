@@ -39,6 +39,15 @@ export default function CreateClass() {
     });
 
     try {
+      console.log('📊 Form data before submission:', {
+        instructorAddress: formData.instructorAddress,
+        price: formData.price,
+        duration: formData.duration,
+        durationParsed: parseInt(formData.duration),
+        chainId: chainId,
+        description: description
+      });
+
       await createYogaClass(
         formData.instructorAddress,
         formData.price,
@@ -46,7 +55,7 @@ export default function CreateClass() {
         description
       );
     } catch (error) {
-      console.error('Error creating yoga class:', error);
+      console.error('❌ Error creating yoga class:', error);
     }
   };
 
@@ -72,6 +81,20 @@ export default function CreateClass() {
 
   return (
     <div className="create-class">
+      <div style={{
+        background: '#fff3cd',
+        border: '1px solid #ffeaa7',
+        color: '#856404',
+        padding: '1rem',
+        borderRadius: '8px',
+        marginBottom: '2rem'
+      }}>
+        <h4>🚨 Debug Mode Active</h4>
+        <p><strong>If you see high network fees ($14M+), do NOT proceed!</strong></p>
+        <p>We're using hardcoded safe values (0.001 ETH, 1 day) to debug the issue.</p>
+        <p>Please check your browser console (F12) for debug information and report what you see.</p>
+      </div>
+      
       <h2>Book a Yoga Class</h2>
       <p>Pay for a yoga class through secure escrow. You can request a refund before the class starts, or the instructor gets paid after the deadline.</p>
       
