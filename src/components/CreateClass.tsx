@@ -19,9 +19,9 @@ export default function CreateClass() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Check if on correct network
-    if (chainId !== 42161) {
-      alert('Please switch to Arbitrum One network (Chain ID: 42161)');
+    // Check if on supported network
+    if (chainId !== 42161 && chainId !== 8453) {
+      alert('Please switch to Arbitrum One (Chain ID: 42161) or Base Mainnet (Chain ID: 8453)');
       return;
     }
     
@@ -82,17 +82,17 @@ export default function CreateClass() {
   return (
     <div className="create-class">
       <div style={{
-        background: '#fff3cd',
-        border: '1px solid #ffeaa7',
-        color: '#856404',
+        background: '#d4edda',
+        border: '1px solid #c3e6cb',
+        color: '#155724',
         padding: '1rem',
         borderRadius: '8px',
         marginBottom: '2rem'
       }}>
-        <h4>🚨 Debug Mode Active</h4>
-        <p><strong>If you see high network fees ($14M+), do NOT proceed!</strong></p>
-        <p>We're using hardcoded safe values (0.001 ETH, 1 day) to debug the issue.</p>
-        <p>Please check your browser console (F12) for debug information and report what you see.</p>
+        <h4>✅ Multi-Network Support</h4>
+        <p><strong>Now supports both Arbitrum One and Base Mainnet!</strong></p>
+        <p>Switch to <strong>Base Mainnet</strong> for lower fees if you experience issues on Arbitrum One.</p>
+        <p>The Kleros Escrow contract works on both networks.</p>
       </div>
       
       <h2>Book a Yoga Class</h2>

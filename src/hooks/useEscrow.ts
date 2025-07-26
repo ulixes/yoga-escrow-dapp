@@ -22,30 +22,15 @@ export function useEscrow() {
     secondsFromNow: number,
     description: string
   ) => {
-    // Force safe values for debugging
-    const safePriceInEth = "0.001";
-    const safeSecondsFromNow = 86400; // 1 day
-    const safeInstructorAddress = "0xb07bb9D7Be773CD996cd092EF8b249Da49ec6ec6";
-    const safeDescription = "Test Yoga Class";
-    
     const currentTime = Math.floor(Date.now() / 1000);
-    const deadline = BigInt(currentTime + safeSecondsFromNow);
-    
-    console.log('🔍 Debug info (FORCED SAFE VALUES):', {
-      original: { priceInEth, secondsFromNow, instructorAddress, description },
-      safe: { safePriceInEth, safeSecondsFromNow, safeInstructorAddress, safeDescription },
-      currentTime,
-      deadline: deadline.toString(),
-      parsedEther: parseEther(safePriceInEth).toString(),
-      contractAddress: ESCROW_CONTRACT.address
-    });
+    const deadline = BigInt(currentTime + secondsFromNow);
     
     writeContract({
       address: ESCROW_CONTRACT.address,
       abi: ESCROW_CONTRACT.abi,
       functionName: 'createNativeTransaction',
-      args: [deadline, safeDescription, safeInstructorAddress as `0x${string}`],
-      value: parseEther(safePriceInEth),
+      args: [deadline, description, instructorAddress as `0x${string}`],
+      value: parseEther(priceInEth),
     });
   };
 
