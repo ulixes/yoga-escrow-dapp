@@ -19,10 +19,10 @@ export function useEscrow() {
   const createYogaClass = async (
     instructorAddress: string,
     priceInEth: string,
-    daysFromNow: number,
+    secondsFromNow: number,
     description: string
   ) => {
-    const deadline = BigInt(Math.floor(Date.now() / 1000) + (daysFromNow * 24 * 60 * 60));
+    const deadline = BigInt(Math.floor(Date.now() / 1000) + secondsFromNow);
     
     writeContract({
       address: ESCROW_CONTRACT.address,
